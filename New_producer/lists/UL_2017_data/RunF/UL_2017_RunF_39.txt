@@ -1,0 +1,1 @@
+/eos/cms/store/group/phys_exotica/dijet/Dijet13TeV/magda/Run2017F-09Aug2019_UL2017-v1/JetHT/crab_JetHT__Run2017F-09Aug2019_UL2017-v1__MINIAOD/190903_222644//0001/JetHT__Run2017F-09Aug2019_UL2017-v1__MINIAOD_1951.root

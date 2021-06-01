@@ -1,0 +1,12 @@
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_955.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_956.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_957.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_958.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_959.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_960.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_961.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_962.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_963.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_964.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_965.root
+/eos/cms/store/group/phys_jetmet/magda/MinBiasFlat_UL2017/MinimumBias/crab_MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD/191202_114544//0000/MinimumBias__Run2017D-09Aug2019_UL2017-v1__MINIAOD_966.root

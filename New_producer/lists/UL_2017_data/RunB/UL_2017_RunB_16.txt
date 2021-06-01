@@ -1,0 +1,6 @@
+/eos/cms/store/group/phys_exotica/dijet/Dijet13TeV/magda/Run2017B-09Aug2019_UL2017-v1/JetHT/crab_JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD/191009_162219//0000/JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD_807.root
+/eos/cms/store/group/phys_exotica/dijet/Dijet13TeV/magda/Run2017B-09Aug2019_UL2017-v1/JetHT/crab_JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD/191009_162219//0000/JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD_808.root
+/eos/cms/store/group/phys_exotica/dijet/Dijet13TeV/magda/Run2017B-09Aug2019_UL2017-v1/JetHT/crab_JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD/191009_162219//0000/JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD_809.root
+/eos/cms/store/group/phys_exotica/dijet/Dijet13TeV/magda/Run2017B-09Aug2019_UL2017-v1/JetHT/crab_JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD/191009_162219//0000/JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD_810.root
+/eos/cms/store/group/phys_exotica/dijet/Dijet13TeV/magda/Run2017B-09Aug2019_UL2017-v1/JetHT/crab_JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD/191009_162219//0000/JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD_811.root
+/eos/cms/store/group/phys_exotica/dijet/Dijet13TeV/magda/Run2017B-09Aug2019_UL2017-v1/JetHT/crab_JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD/191009_162219//0000/JetHT__Run2017B-09Aug2019_UL2017-v1__MINIAOD_812.root
