@@ -1,0 +1,261 @@
+Available datasets can be found on DAS:  https://cmsweb.cern.ch/das/
+
+Sto kathe dataset pigainoume sto config kai elegxoume me poia release einai kai poio Global Tag px gia to MinimumBias pou tha trexeis (apo to email):
+CMSSW_10_1_9 release
+101X_dataRun2_Prompt_v11 Global Tag
+
+In each dataset, by clicking on "config" you can find the required CMSSW release and the corresponding Global Tag. 
+
+eg: 
+CMSSW_10_1_9 
+101X_dataRun2_Prompt_v11
+
+
+!!!!!!!!!!!!!!!!!!!!!!!! Part 1: github, public ssh key (This needs to be done only once for each lxplus account)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ 
+===================================================================
+To do some of the following commands on github you will need a "public ssh key" installed to your lxplus account.
+
+1)Follow the orders to get an ssh key from the link: 
+
+https://git-scm.com/book/en/v2/Git-on-the-Server-Generating-Your-SSH-Public-Key
+
+2) Then you need to add it to your github account (if you don't have an account you need to make one) . Follow the links to add the key to your account here: 
+
+https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+
+3) Now you need to connect your lxplus account to  your github account: (https://twiki.cern.ch/twiki/bin/view/Sandbox/ASmallGitCMSSWTutorial)
+
+Do it with these commands: 
+
+Run following commands:
+git config --global user.name "First name Last name"
+git config --global user.email <Your-Email-Address>
+git config --global user.github <Your-Just-Created-GitHub-Account-Username>
+
+
+4) Finally, you need to copy the key from your local pc to your lxplus account: 
+
+scp -r /home/dkarasav/.ssh/id_rsa.pub "dkarasav@lxplus.cern.ch:~/.ssh/
+
+This needs to be done one once. After that, you just need to remember and give the "passphraze" you defined when generating your key.
+
+HINT: there are *plenty* of instructions on the internet on how to generate an "ssh public key" (steps 1, 2)  locally and there are 2-3 - or more - ways of doing it.
+ Find one that suits you (if this doesnt) and dont forget to copy the key once you get it to your lxplus account. 
+
+====================================================================================
+
+
+
+!!!!!!!!!!!!!!!!!!!Part 2: Get The modified treemaker from github (This needs to be done every time you need a new CMSSW release) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+Firstly, the instructions for everything needed to get the modified TreeMaker that produces AK4CHS and AK4PUPPI (or AK8PUPPI) are provided.
+============================================================================================
+
+tcsh
+setenv SCRAM_ARCH slc6_amd64_gcc630 ->set the corresponding architecture for the chosen release.
+cmsrel CMSSW_10_1_9 ->get the release
+cd CMSSW_10_1_9/src
+cmsenv
+git cms-init
+git cms-addpkg PhysicsTools/PatAlgos
+git cms-addpkg CommonTools/PileupAlgos #currently needed to run with Puppi v15 tune. perhaps it is not needed on later samples that have this tune by default. 
+git remote add ahinzmann git@github.com:ahinzmann/cmssw.git
+git fetch ahinzmann puppiWeightedMultiplicities
+
+==================================================================
+
+Next, you need the standard dijet tree maker from the dijet analysis. Small modifications required for the JetID ntuples will be introduced later.
+
+Instructions to get the standard dijet tree maker can be found here: 
+
+https://github.com/CMSDIJET/DijetRootTreeMaker/blob/master/instructions/bigtuples_instructions_data.txt
+
+
+Summary: 
+
+git clone https://github.com/CMSDIJET/DijetRootTreeMaker.git CMSDIJET/DijetRootTreeMaker
+scram b -j 8   # compile the standard dijet tree maker. This step will need to be repeated after you copy the modified one.
+
+
+Get the files for the modified tree maker. 
+
+
+cd CMSDIJET/DijetRootTreeMaker/plugins/
+
+wget https://github.com/dimkarasav/JetID/blob/main/New_producer/Modified_treeMaker_files/DijetTreeProducer.cc
+wget https://github.com/dimkarasav/JetID/blob/main/New_producer/Modified_treeMaker_files/DijetTreeProducer.h
+
+cd ../prod/
+
+wget https://github.com/dimkarasav/JetID/blob/main/New_producer/Modified_treeMaker_files/flat-MC-cfg_miniAOD_puppi.py
+wget https://github.com/dimkarasav/JetID/blob/main/New_producer/Modified_treeMaker_files/flat-data-cfg_miniAOD_AK8.py
+wget https://github.com/dimkarasav/JetID/blob/main/New_producer/Modified_treeMaker_files/flat-data-cfg_miniAOD_puppi.py
+
+
+Now, you need to go back you the src/ directory and compile again. 
+
+cd ../../../
+scram b
+
+====================================================================================================
+
+
+Part 3: What you do if you have the CMSSW release installed, and you need to run jobs.
+
+
+==============================================================
+tcsh
+setenv SCRAM_ARCH slc6_amd64_gcc530               # Use the correct architecture for your release.
+source /cvmfs/cms.cern.ch/cmsset_default.csh
+source /cvmfs/cms.cern.ch/crab3/crab.csh
+voms-proxy-init -voms cms
+
+==============================================================
+Now move to the "CMSSW_10_1_9/src/CMSDIJET/DijetRootTreeMaker/prod/submitJobsWithCrab3" directory.
+
+
+Submit the jobs on crab: 
+
+=======================================================================
+python createAndSubmitDATA.py -d Output_MinBias_2018C_v3 -v only_MC_jec -i Inputs_Data2018/InputList_MinBias_Run2018C_v3.txt  -t crab3_template_data.py -c ../flat-data-cfg_miniAOD.py -n $USER --submit
+========================================================================
+
+Command explanation: 
+
+-In the current directory (/submitJobsWithCrab3/) a new directory is created with name "Output_MinBias_2018C_v3"
+
+-You need to create a new directory "Inputs_data2018" and one .txt  inside it: "InputList_MinBias_Run2018C_v3.txt".
+
+This txt contains one line per sample.
+
+/MinimumBias/Run2018C-PromptReco-v3/MINIAOD -1 30  101X_dataRun2_Prompt_v11
+
+Which is : Dataset, number of files to be run per job, global tag 
+
+
+Before running the command the "crab3_template_data.py" should be modified accordingly:
+
+
+1)Put the correct JSON file ( For minimum Bias, this step is commented out)
+
+ config.Data.lumiMask = '/afs/cern.ch/work/m/mdiamant/private/CMSSW_9_2_13_TreeMaker/src/CMSDIJET/DijetRootTreeMaker/prod/submitJobsWithCrab3/JSON_Certified/Cert_294927-305636_13TeV_PromptReco_Collisions17_JSON.txt' 
+                      
+2) Put the output directory to save the big trees (usually this is on eos)
+ 
+config.Data.outLFNDirBase = '/store/group/phys_jetmet/magda/bigtrees_test/'
+
+
+
+=================================run MC BIG TREES ============================================
+
+python createAndSubmitMC.py -d Ouput_Pixed_Ideal_Scenario/ -v only_MC_jec -i Inputs_Pixel_Failure_Scenarios/ScenarioA.txt -t crab3_template_MC.py -c ../flat-MC-cfg_miniAOD.py -n $USER --submit
+
+ python createAndSubmitMC.py -d Output_MC_Fall18/ -v MC_Fall18_170_300 -i Inputs_MC_Fall18/Inputlist_170_300_MC_Fall18.txt -t crab3_template_MC.py -c ../flat-MC-cfg_miniAOD.py -n $USER --submit
+
+
+
+
+
+
+
+================================= LOCAL RUN - CMS RUN =======================================================
+
+How to locally run a test in order to see if the code works as you wish before you send it to crab.
+
+
+
+1)Go to flat-data-cfg_miniAOD.py: 
+
+The file that will run localy is defined in line 119. Check that it exists in eos. If not, choose one that exists.
+
+line 119 :      fileNames = cms.untracked.vstring("file:/eos/cms/store/data/Run2018D/JetHT/MINIAOD/PromptReco-v2/000/321/475/00000/2C8F9EA3-6CA6-E811-8038-FA163E8EA847.root")
+
+2) Search in DAS for this dataset and find its Global Tag.
+
+Write the global tag on line 14 - comment out line 15.
+
+3) uncomment out  line 26:  fileName=cms.string('test.root') and comment out line 27.
+
+4)In the DijetTreeProducer.cc, in lines 1365-1371 there are some couts that you can use to check if your code runs ok.
+
+5) Go back to the CMSSW_10_1_9/src/ directory and do:  scram b -j 8 
+
+6)Go to  CMSSW_10_1_9/src/CMSDIJET/DijetRootTreeMaker/prod/ and do: 
+
+cmsRun flat-data-cfg_miniAOD.py
+
+7) Remember to change the lines as they were in steps 1), 2), 3) in order to run on crab.  
+
+
+========================================Re-submitting jobs on crab=========================================================
+First run these commands once to setup the enviroment to run crab jobs: 
+
+tcsh
+setenv SCRAM_ARCH slc6_amd64_gcc530
+source /cvmfs/cms.cern.ch/cmsset_default.csh
+source /cvmfs/cms.cern.ch/crab3/crab.csh
+voms-proxy-init -voms cms
+
+cmsenv ( do this after the /src/ directory of your isntalled CMSSW release)
+
+1) When submitting a job in crab with the "createAndSubmitDATA.py" script, a directory is created, the name of which is defined in the command's 2 arguments: " -d Output_JetHT_rereco_2018 -v only_MC_jec". 
+
+Inside this directory "Output_MinBias_2018C_v3" you find something like:  only_MC_jec_20181113_1743/workdir/crab_JetHT__Run2018A-17Sep2018-v1__MINIAOD/
+
+** Your goal is to find the path of this last directory "crab_<dataset_name>" **
+
+2) Then you just run the command (with the corresponding path): 
+
+ crab resubmit only_MC_jec_20181113_1743/workdir/crab_JetHT__Run2018A-17Sep2018-v1__MINIAOD/
+
+
+
+===================================Get the processed JSON file for the big trees (this is needed for the reduced ntuples)===============================
+
+To get *manually* the processed JSON file follow the steps 1-8. Make sure you are at the "/submitJobsWithCrab3/" directory. 
+
+
+
+
+1) Open the "crab.log" file of the processed job
+
+2)Search "Task name" and copy the part: 181113_164416:dkarasav_crab_JetHT__Run2018A-17Sep2018-v1__MINIAOD
+
+3)Go to the directory that you gave on the on the "-d" argument (e.g. -d Output_JetHT_rereco_2018/ ) 
+
+4) Do the command: crab remake --task=181113_164416:dkarasav_crab_JetHT__Run2018A-17Sep2018-v1__MINIAOD
+
+5) Then a directory is created with name "crab_JetHT__Run2018A-17Sep2018-v1__MINIAOD/ ", so do the command: 
+
+6)crab report crab_JetHT__Run2018A-17Sep2018-v1__MINIAOD
+
+7)Inside it, in the directory "results" you find the JSON file with name: processedLumis.json
+
+8) Rename the json file to have the name of the dataset
+
+============================= Get the processed JSON file for the big trees with .sh script =========================================
+
+I have automized this procedure with a shell script which could be easier (but I havent tested it extensively. Could be buggy in some cases.)
+
+Get the shell script. Again make sure you are at the "/submitJobsWithCrab3/" directory. 
+
+wget https://github.com/dimkarasav/JetID/blob/main/New_producer/Modified_treeMaker_files/GetProcessedJSON.sh
+
+Run the script: 
+
+./GetProcessedJSON.sh Output_UL16RunH/ JSON_Certified/ JSON_RunH
+
+1st argument: The directory that you gave as "output" when running the "createAndSubmitDATA.py". 
+2nd argument: Directory to save the output JSON file. 
+3rd argument: Beginning of name of the output file.
+
+==============================
+
+
+
+
+
+
+
