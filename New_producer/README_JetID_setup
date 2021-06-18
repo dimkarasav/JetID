@@ -1,0 +1,11 @@
+mkdir JetID_unified_repo
+cd JetID_unified_repo
+
+git clone https://github.com/dimkarasav/JetID.git
+
+export SCRAM_ARCH=slc7_amd64_gcc630
+cmsrel CMSSW_10_1_5
+cd CMSSW_10_1_5/src/
+
+git clone -b JetID https://github.com/dimkarasav/DijetRootTreeAnalyzer.git CMSDIJET/DijetRootTreeAnalyzer
+
