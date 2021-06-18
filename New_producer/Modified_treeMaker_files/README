@@ -1,0 +1,2 @@
+The files in this directory are not needed, for the analysis of the reduced ntuples. They are here for easy access and they are used to modify the standard dijet tree maker 
+in order to produce the big ntuples containing AK4CHS, AK4PUPPI or AK8PUPPI that are used in the JetID analysis.
