@@ -9,3 +9,217 @@ cd CMSSW_10_1_5/src/
 
 git clone -b JetID https://github.com/dimkarasav/DijetRootTreeAnalyzer.git CMSDIJET/DijetRootTreeAnalyzer
 
+
+====================================================================================================================================
+
+A) Instructions to produce "big" ntuples from public datasets 
+
+
+https://github.com/dimkarasav/JetID/blob/main/New_producer/README_big_ntuples_on_crab
+
+
+====================================================================================================================================
+
+B) Create reduced ntuples for JetHT / QCD samples
+
+
+cd CMSDIJET/DijetRootTreeAnalyzer
+
+Instructions to produce reduced ntuples can be found at bash_scripts/README_reduced_trees_condor.txt.
+
+https://github.com/dimkarasav/DijetRootTreeAnalyzer/blob/JetID/bash_scripts/README_reduced_trees_condor.txt
+
+Before moving to the analysis scripts, there should be one reduced .root file per JetHT/QCD sample. (eg. One .root file  per running period for data, one .root file per QCD pT-hat binned sample, etc.)
+
+====================================================================================================================================
+
+C) JetID analysis scripts for JetHT/ QCD samples 
+
+All .C scripts have their inputs / outputs hardcoded (but in a clean way that is easy to find by editing the files). 
+
+To run the scripts, edit them to define the input files, output directories, options, etc and run them as the example below: 
+
+root -l
+.L C_scripts/btbdijets_eff_Tag_and_Probe_recalcJetID.C++
+btbdijets_eff_Tag_and_Probe_recalcJetID()
+.q
+
+i) C_scripts/btbdijets_eff_Tag_and_Probe_recalcJetID.C
+
+	Description: 
+		Estimate JetID efficiency with Tag and Probe and make the plots.
+		The JetID criteria used chosen by the function "getJetID".
+		By default you can choose to use criteria for either CHS or PUPPI, for UL or end-of-year datasets and for any year (2016, 2017 or 2018).
+		Additionally, the criteria can be manually modified in order to investigate certain changes you want to apply, or to re-optimize for new/old samples. 
+
+
+	Inputs: reduced JetHT ntuples from step B.
+
+	Outputs: .png, .pdf plots of JetID efficiency as a function of pT for various |η| bins.
+	.root file with the histograms that are used to estimate the efficiency. 
+
+ii) C_scripts/btbdijets_data_no_vs_withJetID_recalcJetID.C
+
+	Description: 
+
+		Comparison plots of jet characteristics of btb dijets in data with and without JetID.
+		The JetID criteria used chosen by the function "getJetID".
+		By default you can choose to use criteria for either CHS or PUPPI, for UL or end-of-year datasets and for any year (2016, 2017 or 2018).
+		Additionally, the criteria can be manually modified in order to investigate certain changes you want to apply, or to re-optimize for new/old samples.
+
+	Inputs: reduced JetHT ntuples from step B.
+
+	Outputs: .png, .pdf plots of jet characteristics for various |η| bins.
+
+iii) C_scripts/btbdijets_and_noise_no_vs_withJetID_recalcJetID.C
+
+
+	Description: 
+
+		Comparison plots of jet characteristics in data with and without JetID of btb dijets (physics jets) and jets from a Minimum bias sample (noise jets).
+		The JetID criteria used chosen by the function "getJetID".
+		By default you can choose to use criteria for either CHS or PUPPI, for UL or end-of-year datasets and for any year (2016, 2017 or 2018).
+		Additionally, the criteria can be manually modified in order to investigate certain changes you want to apply, or to re-optimize for new/old samples.
+		Make sure the input .root files for the MinBias histograms were created with the same criteria (look step D)
+
+	Inputs: reduced JetHT ntuples from step B.
+			.root files from step E-i.
+
+	Outputs: .png, .pdf plots of jet characteristics for various |η| bins for physics and noise jets, with and without JetID, superimposed.
+
+
+iv) C_scripts/btbdijets_jet_characteristic_RunStability.C
+
+	Description: 
+
+		Comparison plots of jet characteristics of btb dijets in data for each running period without applying JetID.
+
+	 
+	Inputs: reduced JetHT ntuples from step B.
+	Outputs: .png, .pdf plots of jet characteristics for various |η| bins for btb dijets,without JetID, superimposed for each running period.
+
+v)  C_scripts/btbdijets_eff_Tag_and_Probe_MC_recalcJetID.C 
+
+	Description: 
+		Estimate JetID efficiency with Tag and Probe for simulated jets and make the plots.
+		The JetID criteria used chosen by the function "getJetID".
+		By default you can choose to use criteria for either CHS or PUPPI, for UL or end-of-year datasets and for any year (2016, 2017 or 2018).
+		Additionally, the criteria can be manually modified in order to investigate certain changes you want to apply, or to re-optimize for new/old samples. 
+
+
+	Inputs: reduced QCD ntuples from step B.   Each pT-hat bin should be given as one .root file
+
+	Outputs: .png, .pdf plots of JetID efficiency as a function of pT for various |η| bins.
+	.root file with the histograms that are used to estimate the efficiency. 
+
+vi)  C_scripts/btbdijets_MC_no_vs_withJetID_recalcJetID.C  Each pT-hat bin should be given as one .root file
+
+	Description: 
+
+		Comparison plots of jet characteristics of btb dijets in QCD sample with and without JetID.
+		The JetID criteria used chosen by the function "getJetID".
+		By default you can choose to use criteria for either CHS or PUPPI, for UL or end-of-year datasets and for any year (2016, 2017 or 2018).
+		Additionally, the criteria can be manually modified in order to investigate certain changes you want to apply, or to re-optimize for new/old samples.
+
+	Inputs: reduced QCD ntuples from step B. Each pT-hat bin should be given as one .root file
+
+	Outputs: .png, .pdf plots of jet characteristics for various |η| bins.
+
+vii)  C_scripts/btbdijets_data_vs_MC.C
+
+	Description: 
+
+		Comparison plots of jet characteristics of btb dijets between data and MC without applying JetID.
+
+	 
+	Inputs: 
+				reduced JetHT ntuples from step B.
+				reduced QCD ntuples   from step B.
+
+
+	Outputs: .png, .pdf plots of jet characteristics for various |η| bins for btb dijets,without JetID, superimposed for data and MC.
+
+viii) C_scripts/Calculate_total_efficiencies.C
+
+	Description: 
+
+		Prints on terminal the absolute efficiencies for each |η| bin and for the two HLT triggers selected.
+
+	 
+	Inputs: 
+				.root files from step (i) for data or (v) for MC.
+
+
+	Outputs: Not output. Just prints on terminal.
+
+
+ix) C_scripts/Get_JetID_Efficiency_Scale_Factors.C
+
+	Description: 
+
+		Creates the plot for the scale factors (which is the ratio between the data and MC efficiencies) and prints absolute the scale factor values for each |η| bin in the terminal.
+
+	 
+	Inputs: 
+				.root files from step (i) for data  AND  (v) for MC.
+
+
+	Outputs: .png and .pdf plots of scale factors.
+
+====================================================================================================================================
+D) Process Minimum Bias datasets.
+
+
+Go to the JetID/New_producer directory (before the CMSSW release). 
+
+This repository is independent of the CMSSW versions. It was created to process the MinBias big ntuples so that we can save more than the two leading jets per event and apply custom JetID criteria on the fly.
+
+For future development it is possible to make the whole JetID analysis this way so that you only need a CMSSW release to produce the big ntuples. For now it is only used for the MinBias samples.
+
+
+To produce reduced ntuples use the shell scripts at New_producer/bash_scripts/ and follow thw instructions for condor jobs as was on step B:
+
+https://github.com/dimkarasav/DijetRootTreeAnalyzer/blob/JetID/bash_scripts/README_reduced_trees_condor.txt
+
+The only difference is that you do not need to specify any CMSSW related parameters.
+
+
+E) JetID analysis scripts for MinBias samples
+
+i) C_scripts/Make_MinBias_Histos.C
+
+	Description: 
+
+			Creates .root file with histograms of jet characteristics with and without applying JetID.
+
+	Input: 
+
+					reduced MinBias ntuples from step D.
+
+	Output: .root file with histograms of jet characteristics with and without applying JetID
+
+ii) C_scripts/Plot_bkg_rejection.C
+
+	Description: 
+
+			Makes plots of JetID background rejection as a function of pT for various |η| bins.
+
+	Input: 
+		.root of step (i)
+
+	Output: plot of JetID background rejection as a function of pT for various |η| bins.
+
+iii) C_scripts/Calculate_bkg_rejection.C
+
+	Description: 
+		Prints on terminal the absolute bkg-rejection for each |η| bin.
+
+	Input: 
+		.root of step (i)
+
+	Output: No outputs. Just prints on terminal.
+
+Note: There are more scripts in the "C_scripts/" like "Make_JetHT_btb_Histos.C" which are not currently needed for the JetID analysis as used here. 
+They were part of the "future development" that can be done in order to run the whole JetID analysis independently of a CMSSW release and with more freedom with respect to the data format of the reduced ntuple files.
+
+

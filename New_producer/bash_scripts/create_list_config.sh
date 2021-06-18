@@ -6,23 +6,13 @@
 
 
 Output_base_name="MinimumBias__Run2016G-21Feb2020_UL2016-v1__MINIAOD"
-#Output_base_name="MinimumBias__Run2018C-12Nov2019_UL2018-v1__MINIAOD"
 path_to_list="lists/UL16_MinBias_nonAPV/"
-#path_to_list="lists/UL18/Data/"
 list_name="RunG"
-#list_name="MinBias_RunC"
 isUL="true"  #set to "true", anything else will make it 'false' 
 isCHS="false" #set to "true", anything else will make it 'false'
 era="2016"   # this can be '2016', '2017' or '2018', maybe will crash for anything else.
 
 
-
-
-
-
-#Release="CMSSW_10_1_5"
-#Release_local_path="/afs/cern.ch/work/d/dkarasav/public/CMSSW_10_1_5"
-#Architecture="slc6_amd64_gcc630"
 
 #####################################################################################################################
 
