@@ -167,7 +167,7 @@ ix) C_scripts/Get_JetID_Efficiency_Scale_Factors.C
 	Outputs: .png and .pdf plots of scale factors.
 
 ====================================================================================================================================
-D) Process Minimum Bias datasets.
+D) Create reduced trees for Minimum Bias datasets.
 
 
 Go to the JetID/New_producer directory (before the CMSSW release). 
