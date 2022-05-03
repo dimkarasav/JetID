@@ -100,6 +100,20 @@ Now, you need to go back you the src/ directory and compile again.
 cd ../../../
 scram b
 
+
+
+
+***Important note*** :
+
+The jet collection you run is defined by the "flat-XXX-cfg_miniAOD_puppi_XXX.py".
+
+  i)The flat-MC-cfg_miniAOD_puppi.py & flat-data-cfg_miniAOD_puppi.py are for MC and data respectively and they save in the big ntuples 
+  the AK4CHS jets as "AK4" and the AK4PUPPI jets as "AK8".
+  
+  ii) The flat-MC-cfg_miniAOD_puppi_AK8.py & flat-data-cfg_miniAOD_puppi_AK8.py are for MC and data respectively and they save in the big ntuples 
+   the AK8PUPPI jets as "AK8".
+
+
 ====================================================================================================
 
 
