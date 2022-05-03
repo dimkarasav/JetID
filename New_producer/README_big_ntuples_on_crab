@@ -92,6 +92,7 @@ cd ../prod/
 wget https://github.com/dimkarasav/JetID/blob/main/New_producer/Modified_treeMaker_files/flat-MC-cfg_miniAOD_puppi.py
 wget https://github.com/dimkarasav/JetID/blob/main/New_producer/Modified_treeMaker_files/flat-data-cfg_miniAOD_AK8.py
 wget https://github.com/dimkarasav/JetID/blob/main/New_producer/Modified_treeMaker_files/flat-data-cfg_miniAOD_puppi.py
+wget https://github.com/dimkarasav/JetID/blob/main/New_producer/Modified_treeMaker_files/flat-MC-cfg_miniAOD_puppi_AK8.py
 
 
 Now, you need to go back you the src/ directory and compile again. 
